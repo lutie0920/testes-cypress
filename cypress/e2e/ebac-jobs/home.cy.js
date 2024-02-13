@@ -1,14 +1,21 @@
 /// <reference types="cypress" />
 
-describe('Testes para a home', () => {
-    it('Deve renderizar 4 vagas', () => {
-        cy.visit('https://ebac-jobs-e2e.vercel.app/')
-        cy.get('.ListaVagas_vagas__gmNZn > li').should('have.length', 4)
+describe('Testes para a página de agenda de contatos', () => {
+    beforeEach(() => {
+        cy.visit('https://agenda-contatos-react.vercel.app/')
     })
-    it('Deve filtrar por fullstack', () => {
-        cy.visit('https://ebac-jobs-e2e.vercel.app/')
-        cy.get('.FormVagas_campo__E1ppF').type('fullstack')
-        cy.get('button[type="submit"]').click()
-        cy.get('.ListaVagas_vagas__gmNZn > li').should('have.length', 1)
+    it('Criar novo contato', () => {
+        cy.get('[type="text"]').type('Luciana Kamon')
+        cy.get('[type="email"]').type('luciana@teste.com')
+        cy.get('[type="tel"]').type(43912345678)
+        cy.get('.adicionar').click()
+    })
+    it('Editar contato', () => {
+        cy.get('.edit').first().click()
+        cy.get('[type="text"]').type(' da Silva')
+        cy.get('.alterar').click()
+    })
+    it('Deletar contato', () => {
+        cy.get('.delete').first().click()
     })
 })
